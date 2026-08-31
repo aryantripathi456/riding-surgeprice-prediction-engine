@@ -1,0 +1,27 @@
+data:
+  n_samples: 100000
+  random_seed: 42
+  test_size: 0.2
+
+model:
+  linear_regression:
+    params: {}
+  ridge_regression:
+    alpha: 1.0
+  random_forest:
+    n_estimators: 200
+    max_depth: 15
+    min_samples_split: 5
+    min_samples_leaf: 2
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+  lightgbm:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8

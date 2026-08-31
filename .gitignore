@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Data (tracked by DVC, not git)
+/data/raw/
+/data/processed/
+/data/features/
+
+# Model artifacts (tracked by DVC)
+/models/*.pkl
+/models/*.joblib
+/models/*.pt
+
+# Reports (generated)
+/reports/drift/*.html
+/reports/*.csv
+/reports/*.json
+
+# DVC
+.dvc/cache/
+.dvc/tmp/
+*.dvc.lock
+
+# Environment variables
+.env
+.env.local
+
+# Docker
+docker-compose.override.yml

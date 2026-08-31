@@ -1,0 +1,92 @@
+project:
+  name: dynamic-pricing-engine
+  version: "1.0.0"
+
+paths:
+  raw_data: data/raw/rides.csv
+  processed_data: data/processed/rides_processed.csv
+  train_features: data/features/train.csv
+  test_features: data/features/test.csv
+  model_output: models/best_model.pkl
+  scaler_output: models/scaler.pkl
+  encoder_output: models/encoder.pkl
+  metrics: reports/metrics.json
+  model_comparison: reports/model_comparison.csv
+  drift_reports: reports/drift/
+
+data:
+  n_samples: 100000
+  random_seed: 42
+  test_size: 0.2
+  target_column: price_multiplier
+
+features:
+  numeric_features:
+    - hour_of_day
+    - day_of_week
+    - passenger_demand
+    - driver_availability
+    - temperature
+    - visibility_km
+    - base_fare
+    - demand_supply_ratio
+    - is_rush_hour
+    - weather_severity_score
+  categorical_features:
+    - weather_condition
+  categorical_columns:
+    - weather_condition
+
+model:
+  experiments:
+    - name: linear_regression
+      class: LinearRegression
+      params: {}
+    - name: ridge_regression
+      class: Ridge
+      params:
+        alpha: 1.0
+    - name: random_forest
+      class: RandomForestRegressor
+      params:
+        n_estimators: 200
+        max_depth: 15
+        min_samples_split: 5
+        min_samples_leaf: 2
+        random_state: 42
+        n_jobs: -1
+    - name: xgboost
+      class: XGBRegressor
+      params:
+        n_estimators: 300
+        max_depth: 6
+        learning_rate: 0.1
+        subsample: 0.8
+        colsample_bytree: 0.8
+        random_state: 42
+        verbosity: 0
+    - name: lightgbm
+      class: LGBMRegressor
+      params:
+        n_estimators: 300
+        max_depth: 6
+        learning_rate: 0.1
+        subsample: 0.8
+        colsample_bytree: 0.8
+        random_state: 42
+        verbose: -1
+
+mlflow:
+  experiment_name: dynamic-pricing-experiment
+  tracking_uri: http://localhost:5000
+  model_registry_name: dynamic-pricing-model
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  title: Dynamic Pricing API
+  version: "1.0.0"
+
+monitoring:
+  drift_threshold: 0.1
+  n盗窃_features_alert: 3
