@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-08-31T13:09:01.977112",
+  "reference_rows": 80000,
+  "current_rows": 2000,
+  "dataset_drift": true,
+  "n_drifted_features": 2,
+  "drifted_features": [
+    "weather_condition_storm",
+    "weather_severity_score"
+  ],
+  "drift_scores": {
+    "hour_of_day": {
+      "drift_detected": false,
+      "drift_score": 0.039
+    },
+    "day_of_week": {
+      "drift_detected": false,
+      "drift_score": 0.081
+    },
+    "is_weekend": {
+      "drift_detected": false,
+      "drift_score": 0.087
+    },
+    "passenger_demand": {
+      "drift_detected": false,
+      "drift_score": 0.03
+    },
+    "driver_availability": {
+      "drift_detected": false,
+      "drift_score": 0.062
+    },
+    "temperature": {
+      "drift_detected": false,
+      "drift_score": 0.035
+    },
+    "visibility_km": {
+      "drift_detected": false,
+      "drift_score": 0.034
+    },
+    "base_fare": {
+      "drift_detected": false,
+      "drift_score": 0.026
+    },
+    "weather_condition_clear": {
+      "drift_detected": false,
+      "drift_score": 0.098
+    },
+    "weather_condition_cloudy": {
+      "drift_detected": false,
+      "drift_score": 0.092
+    },
+    "weather_condition_rain": {
+      "drift_detected": false,
+      "drift_score": 0.085
+    },
+    "weather_condition_snow": {
+      "drift_detected": false,
+      "drift_score": 0.087
+    },
+    "weather_condition_storm": {
+      "drift_detected": true,
+      "drift_score": 0.115
+    },
+    "price_multiplier": {
+      "drift_detected": false,
+      "drift_score": 0.023
+    },
+    "demand_supply_ratio": {
+      "drift_detected": false,
+      "drift_score": 0.046
+    },
+    "hour_sin": {
+      "drift_detected": false,
+      "drift_score": 0.04
+    },
+    "hour_cos": {
+      "drift_detected": false,
+      "drift_score": 0.052
+    },
+    "demand_weather_interaction": {
+      "drift_detected": false,
+      "drift_score": 0.03
+    },
+    "fare_per_driver": {
+      "drift_detected": false,
+      "drift_score": 0.029
+    },
+    "is_rush_hour": {
+      "drift_detected": false,
+      "drift_score": 0.0
+    },
+    "weather_severity_score": {
+      "drift_detected": true,
+      "drift_score": 0.833
+    },
+    "is_night": {
+      "drift_detected": false,
+      "drift_score": 0.0
+    }
+  }
+}
