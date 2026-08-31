@@ -58,3 +58,6 @@ mlartifacts/
 
 # Docker
 docker-compose.override.yml
+
+# Local documentation (not for repo)
+GITHUB.md
