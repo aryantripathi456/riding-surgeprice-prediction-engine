@@ -43,3 +43,22 @@ stages:
           persist: true
       - data/features/test.csv:
           persist: true
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - src/models/train.py
+      - src/utils.py
+      - data/features/train.csv
+      - data/features/test.csv
+      - configs/config.yaml
+    params:
+      - model.*
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    outs:
+      - models/best_model.pkl
+    plots:
+      - reports/model_comparison.csv:
+          cache: false
