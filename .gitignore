@@ -19,7 +19,7 @@ ENV/
 *.swp
 *.swo
 *~
-
+*.docx
 # OS
 .DS_Store
 Thumbs.db
