@@ -1,0 +1,5 @@
+outs:
+- md5: 0f6de0ace1cc4816da3a55574261c4be
+  size: 6635630
+  hash: md5
+  path: rides.csv

@@ -28,22 +28,26 @@ Thumbs.db
 mlruns/
 mlartifacts/
 
-# Data (tracked by DVC, not git)
-/data/raw/
-/data/processed/
-/data/features/
+# Data contents (tracked by DVC, not git) - but NOT .dvc files
+/data/raw/*
+!/data/raw/*.dvc
+/data/processed/*
+!/data/processed/*.dvc
+/data/features/*
+!/data/features/*.dvc
 
 # Model artifacts (tracked by DVC)
 /models/*.pkl
 /models/*.joblib
 /models/*.pt
+!/models/*.dvc
 
 # Reports (generated)
 /reports/drift/*.html
 /reports/*.csv
 /reports/*.json
 
-# DVC
+# DVC internals
 .dvc/cache/
 .dvc/tmp/
 *.dvc.lock

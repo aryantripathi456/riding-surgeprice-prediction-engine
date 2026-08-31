@@ -1,0 +1,45 @@
+stages:
+  generate:
+    cmd: python -m src.data.generate
+    deps:
+      - src/data/generate.py
+      - src/utils.py
+      - configs/config.yaml
+    params:
+      - data.n_samples
+      - data.random_seed
+    outs:
+      - data/raw/rides.csv
+
+  preprocess:
+    cmd: python -m src.data.preprocess
+    deps:
+      - src/data/preprocess.py
+      - src/utils.py
+      - data/raw/rides.csv
+      - configs/config.yaml
+    params:
+      - data.test_size
+      - data.random_seed
+      - data.target_column
+      - features.categorical_columns
+    outs:
+      - data/processed/rides_processed.csv
+      - data/features/train.csv
+      - data/features/test.csv
+      - models/scaler.pkl
+      - models/encoder.pkl
+
+  build_features:
+    cmd: python -m src.features.build_features
+    deps:
+      - src/features/build_features.py
+      - src/utils.py
+      - data/features/train.csv
+      - data/features/test.csv
+      - configs/config.yaml
+    outs:
+      - data/features/train.csv:
+          persist: true
+      - data/features/test.csv:
+          persist: true
