@@ -8,7 +8,7 @@ import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.schemas import (
@@ -51,8 +51,10 @@ def reset_predictor():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load model on startup."""
-    get_predictor()
+    app.state.model = get_predictor()
     yield
+    logging.info("Shutting down App...")
+    del app.state.model
 
 
 app = FastAPI(
@@ -73,9 +75,9 @@ app.add_middleware(
 
 
 @app.get("/", response_model=HealthResponse)
-async def health_check():
+async def health_check(request: Request):
     """Health check endpoint."""
-    predictor = get_predictor()
+    predictor = request.app.state.model
     return HealthResponse(
         status="healthy",
         model_loaded=predictor is not None,
@@ -84,13 +86,13 @@ async def health_check():
 
 
 @app.post("/predict", response_model=PredictionResponse)
-async def predict_price(request: RideRequest):
+async def predict_price(payload: RideRequest, request: Request):
     """Predict ride price multiplier based on current conditions.
 
     Accepts ride request data and returns the predicted surge multiplier,
     estimated final price, and confidence level.
     """
-    predictor = get_predictor()
+    predictor = request.app.state.model
     if predictor is None:
         raise HTTPException(
             status_code=503,
@@ -98,7 +100,7 @@ async def predict_price(request: RideRequest):
         )
 
     try:
-        data = request.model_dump()
+        data = payload.model_dump()
         result = predictor.predict(data)
         return PredictionResponse(**result)
     except Exception as e:
@@ -109,9 +111,9 @@ async def predict_price(request: RideRequest):
 
 
 @app.get("/model-info", response_model=ModelInfoResponse)
-async def model_info():
+async def model_info(request: Request):
     """Return information about the loaded model."""
-    predictor = get_predictor()
+    predictor = request.app.state.model
     if predictor is None:
         raise HTTPException(
             status_code=503,
